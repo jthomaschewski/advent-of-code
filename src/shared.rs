@@ -12,3 +12,13 @@ impl Display for Part {
         write!(f, "{}", self.to_owned() as u8)
     }
 }
+impl Part {
+    pub fn from_arg(value: Option<u8>) -> Vec<Part> {
+        match value {
+            Some(1) => vec![Part::One],
+            Some(2) => vec![Part::Two],
+            None => vec![Part::One, Part::Two],
+            Some(value) => panic!("Invalid part nr {value}"),
+        }
+    }
+}
