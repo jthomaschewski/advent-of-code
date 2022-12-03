@@ -1,15 +1,10 @@
-pub fn solve() -> u32 {
-    let sums = get_elf_sums();
-    sums.iter().max().unwrap().clone()
+pub fn solve(input: &str) -> u32 {
+    let groups = input.split("\n\n");
+
+    groups.map(sum_food).max().unwrap()
 }
 
-fn get_elf_sums() -> Vec<u32> {
-    let str = include_str!("./input/input.txt");
-
-    str.split("\n\n").map(get_elf_food_sum).collect()
-}
-
-fn get_elf_food_sum(elf_str: &str) -> u32 {
+fn sum_food(elf_str: &str) -> u32 {
     elf_str
         .lines()
         .filter_map(|food_str| food_str.parse::<u32>().ok())

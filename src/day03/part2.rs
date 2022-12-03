@@ -13,20 +13,21 @@ pub fn solve(input: &str) -> u32 {
 }
 
 fn get_common_item(groups: &[&str]) -> char {
-    for char in groups[0].chars() {
-        let mut found_in_nr = 1;
+    let first_group = &groups[0];
+    let other_groups = &groups[1..];
 
-        for group in &groups[1..] {
-            for c in group.chars() {
-                if c == char {
-                    found_in_nr += 1;
-                    break;
-                }
+    for item in first_group.chars() {
+        let mut matching_group_cnt = 1;
+
+        for group in other_groups {
+            let found = group.chars().find(|other_item| other_item == &item);
+            if found.is_some() {
+                matching_group_cnt += 1;
             }
         }
-        // dbg!(char, found_in_nr, groups);
-        if found_in_nr == groups.len() {
-            return char;
+        // found in all groups?
+        if matching_group_cnt == groups.len() {
+            return item;
         }
     }
     panic!("no common item found");
