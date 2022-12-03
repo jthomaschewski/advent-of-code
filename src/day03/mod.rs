@@ -4,7 +4,7 @@ pub mod part1;
 pub mod part2;
 
 pub fn get_input() -> &'static str {
-    include_str!("./input.txt")
+    include_str!("./input/input.txt")
 }
 
 pub fn run(part: Part) -> u32 {

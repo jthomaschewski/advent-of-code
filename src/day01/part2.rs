@@ -5,7 +5,7 @@ pub fn solve() -> u32 {
 }
 
 fn get_elf_sums() -> Vec<u32> {
-    let str = include_str!("./input.txt");
+    let str = include_str!("./input/input.txt");
 
     str.split("\n\n").map(get_elf_food_sum).collect()
 }
