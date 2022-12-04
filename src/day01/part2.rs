@@ -9,8 +9,5 @@ pub fn solve(input: &str) -> u32 {
 }
 
 fn sum_food(elf_str: &str) -> u32 {
-    elf_str
-        .lines()
-        .filter_map(|food_str| food_str.parse::<u32>().ok())
-        .sum()
+    elf_str.lines().flat_map(str::parse::<u32>).sum()
 }
