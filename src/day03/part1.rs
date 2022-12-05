@@ -1,4 +1,6 @@
-pub fn solve(input: &str) -> u32 {
+use crate::Solution;
+
+pub fn solve(input: &str) -> Solution {
     let rucksacks = input.lines().map(|line| line.split_at(line.len() / 2));
 
     let mut prio_sum = 0;
@@ -7,7 +9,7 @@ pub fn solve(input: &str) -> u32 {
         prio_sum += get_priority(common_item) as u32;
     }
 
-    prio_sum
+    Solution::Number(prio_sum)
 }
 
 fn get_common_item(compartment_a: &str, compartment_b: &str) -> char {

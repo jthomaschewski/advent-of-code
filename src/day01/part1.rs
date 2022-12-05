@@ -1,7 +1,9 @@
-pub fn solve(input: &str) -> u32 {
+use crate::Solution;
+
+pub fn solve(input: &str) -> Solution {
     let groups = input.split("\n\n");
 
-    groups.map(sum_food).max().unwrap()
+    groups.map(sum_food).max().unwrap().into()
 }
 
 fn sum_food(elf_str: &str) -> u32 {

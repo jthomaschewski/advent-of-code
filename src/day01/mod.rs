@@ -1,4 +1,4 @@
-use crate::Part;
+use crate::{Part, Solution};
 
 pub mod part1;
 pub mod part2;
@@ -7,7 +7,7 @@ pub fn get_input() -> &'static str {
     include_str!("./input/input.txt")
 }
 
-pub fn run(part: Part) -> u32 {
+pub fn run(part: Part) -> Solution {
     let input = get_input();
     match part {
         Part::One => part1::solve(input),
@@ -21,11 +21,11 @@ mod tests {
 
     #[test]
     fn part1_works() {
-        assert_eq!(run(Part::One), 66306);
+        assert_eq!(run(Part::One), 66306.into());
     }
 
     #[test]
     fn part2_works() {
-        assert_eq!(run(Part::Two), 195292);
+        assert_eq!(run(Part::Two), 195292.into());
     }
 }

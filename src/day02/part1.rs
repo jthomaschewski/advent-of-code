@@ -1,3 +1,5 @@
+use crate::Solution;
+
 const SCORE_LOST: u32 = 0;
 const SCORE_DRAW: u32 = 3;
 const SCORE_WIN: u32 = 6;
@@ -6,8 +8,8 @@ const SCORE_ROCK: u32 = 1;
 const SCORE_PAPER: u32 = 2;
 const SCORE_SCISSORS: u32 = 3;
 
-pub fn solve(input: &str) -> u32 {
-    input.lines().map(get_score).sum()
+pub fn solve(input: &str) -> Solution {
+    Solution::Number(input.lines().map(get_score).sum())
 }
 
 fn get_score(line: &str) -> u32 {
