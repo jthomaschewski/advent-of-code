@@ -17,16 +17,12 @@ pub fn solve(input: &str) -> Solution {
 
 fn process_moves(moves: &Vec<Move>, stacks: &mut Stacks) {
     for m in moves {
-        // collecting moved items in a temporary vec first
-        // this vec is then reversed and pushed to the target stack
-        let mut tmp_stack = vec![];
-        for _ in 0..m.amount {
-            if let Some(item) = stacks[m.from - 1].pop() {
-                tmp_stack.push(item);
-            }
-        }
-        for item in tmp_stack.iter().rev() {
-            stacks[m.to - 1].push(*item);
-        }
+        // split off the top "move.amount" items from the "move.from" stack
+        // then push those onto the "move.to" stack
+        let from_stack = &mut stacks[m.from - 1];
+        let drained_items = from_stack.split_off(from_stack.len() - m.amount);
+
+        let to_stack = &mut stacks[m.to - 1];
+        to_stack.extend(drained_items);
     }
 }
