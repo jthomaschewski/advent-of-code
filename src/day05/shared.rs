@@ -27,8 +27,8 @@ impl From<&str> for Move {
         let captures = RE.captures(input_line).unwrap();
         Move {
             amount: captures[1].parse::<usize>().unwrap(),
-            from: captures[2].parse::<usize>().unwrap(),
-            to: captures[3].parse::<usize>().unwrap(),
+            from: captures[2].parse::<usize>().unwrap() - 1,
+            to: captures[3].parse::<usize>().unwrap() - 1,
         }
     }
 }

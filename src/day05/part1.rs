@@ -18,8 +18,8 @@ pub fn solve(input: &str) -> Solution {
 fn process_moves(moves: &Vec<Move>, stacks: &mut Stacks) {
     for m in moves {
         for _ in 0..m.amount {
-            if let Some(item) = stacks[m.from - 1].pop() {
-                stacks[m.to - 1].push(item);
+            if let Some(item) = stacks[m.from].pop() {
+                stacks[m.to].push(item);
             }
         }
     }

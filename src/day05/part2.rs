@@ -19,10 +19,9 @@ fn process_moves(moves: &Vec<Move>, stacks: &mut Stacks) {
     for m in moves {
         // split off the top "move.amount" items from the "move.from" stack
         // then push those onto the "move.to" stack
-        let from_stack = &mut stacks[m.from - 1];
+        let from_stack = &mut stacks[m.from];
         let drained_items = from_stack.split_off(from_stack.len() - m.amount);
 
-        let to_stack = &mut stacks[m.to - 1];
-        to_stack.extend(drained_items);
+        stacks[m.to].extend(drained_items);
     }
 }
