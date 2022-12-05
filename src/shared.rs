@@ -37,6 +37,11 @@ impl From<&str> for Solution {
         Solution::String(str.to_string())
     }
 }
+impl From<String> for Solution {
+    fn from(str: String) -> Self {
+        Solution::String(str)
+    }
+}
 impl From<u32> for Solution {
     fn from(n: u32) -> Self {
         Solution::Number(n)
