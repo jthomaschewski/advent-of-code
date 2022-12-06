@@ -17,7 +17,14 @@ fn main() {
     let args = Args::parse();
     let parts_to_run = Part::from_arg(args.part);
 
-    let mut days_to_run = Vec::from([day01::run, day02::run, day03::run, day04::run, day05::run]);
+    let mut days_to_run = Vec::from([
+        day01::run,
+        day02::run,
+        day03::run,
+        day04::run,
+        day05::run,
+        day06::run,
+    ]);
 
     if let Some(day) = args.day {
         if day > days_to_run.len() {
