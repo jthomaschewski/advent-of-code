@@ -21,11 +21,11 @@ mod tests {
 
     #[test]
     fn part1_works() {
-        assert_eq!(run(Part::One), 8176.into());
+        assert_eq!(run(Part::One), 8176_u32.into());
     }
 
     #[test]
     fn part2_works() {
-        assert_eq!(run(Part::Two), 2689.into());
+        assert_eq!(run(Part::Two), 2689_u32.into());
     }
 }

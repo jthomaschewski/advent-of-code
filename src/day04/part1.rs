@@ -1,6 +1,4 @@
-use crate::Solution;
-
-pub fn solve(input: &str) -> Solution {
+pub fn solve(input: &str) -> u32 {
     let overlaps = input
         .lines()
         .map(|line| line.split(&['-', ',']).flat_map(str::parse::<u32>))
@@ -16,5 +14,5 @@ pub fn solve(input: &str) -> Solution {
             }
             sum
         });
-    overlaps.into()
+    overlaps
 }

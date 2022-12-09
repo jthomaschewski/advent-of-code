@@ -10,8 +10,8 @@ pub fn get_input() -> &'static str {
 pub fn run(part: Part) -> Solution {
     let input = get_input();
     match part {
-        Part::One => part1::solve(input),
-        Part::Two => part2::solve(input),
+        Part::One => part1::solve(input).into(),
+        Part::Two => part2::solve(input).into(),
     }
 }
 
@@ -21,11 +21,11 @@ mod tests {
 
     #[test]
     fn part1_works() {
-        assert_eq!(run(Part::One), 456.into());
+        assert_eq!(run(Part::One), 456_u32.into());
     }
 
     #[test]
     fn part2_works() {
-        assert_eq!(run(Part::Two), 808.into());
+        assert_eq!(run(Part::Two), 808_u32.into());
     }
 }
