@@ -28,6 +28,7 @@ impl PartialEq for Solution {
     fn eq(&self, other: &Self) -> bool {
         match (self, other) {
             (Self::Number(n1), Self::Number(n2)) => n1 == n2,
+            (Self::SignedNumber(n1), Self::SignedNumber(n2)) => n1 == n2,
             (Self::String(s1), Self::String(s2)) => s1 == s2,
             _ => false,
         }
@@ -57,6 +58,11 @@ impl From<i32> for Solution {
 impl From<usize> for Solution {
     fn from(n: usize) -> Self {
         Solution::Number(n as u32)
+    }
+}
+impl From<isize> for Solution {
+    fn from(n: isize) -> Self {
+        Solution::SignedNumber(n as i32)
     }
 }
 // Support any Result<T, _> as Solution, for any T, which implements From<T> (see above, e.g. Result<u32, Err>)

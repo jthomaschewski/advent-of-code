@@ -27,6 +27,7 @@ fn main() {
         day07::run,
         day08::run,
         day09::run,
+        day10::run,
     ]);
 
     if let Some(day) = args.day {
