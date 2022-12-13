@@ -11,7 +11,7 @@ pub fn run(part: Part) -> Solution {
     let input = get_input();
     match part {
         Part::One => part1::solve(input),
-        Part::Two => part2::solve(input),
+        Part::Two => part2::solve(input).into(),
     }
 }
 

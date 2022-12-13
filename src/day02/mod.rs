@@ -10,8 +10,8 @@ pub fn get_input() -> &'static str {
 pub fn run(part: Part) -> Solution {
     let input = get_input();
     match part {
-        Part::One => part1::solve(input),
-        Part::Two => part2::solve(input),
+        Part::One => part1::solve(input).into(),
+        Part::Two => part2::solve(input).into(),
     }
 }
 

@@ -8,8 +8,8 @@ pub enum Part {
 
 #[derive(Debug)]
 pub enum Solution {
-    Number(u32),
-    SignedNumber(i32),
+    Number(u64),
+    SignedNumber(i64),
     String(String),
 }
 
@@ -47,22 +47,32 @@ impl From<String> for Solution {
 }
 impl From<u32> for Solution {
     fn from(n: u32) -> Self {
+        Solution::Number(n as u64)
+    }
+}
+impl From<u64> for Solution {
+    fn from(n: u64) -> Self {
         Solution::Number(n)
     }
 }
 impl From<i32> for Solution {
     fn from(n: i32) -> Self {
+        Solution::SignedNumber(n as i64)
+    }
+}
+impl From<i64> for Solution {
+    fn from(n: i64) -> Self {
         Solution::SignedNumber(n)
     }
 }
 impl From<usize> for Solution {
     fn from(n: usize) -> Self {
-        Solution::Number(n as u32)
+        Solution::Number(n as u64)
     }
 }
 impl From<isize> for Solution {
     fn from(n: isize) -> Self {
-        Solution::SignedNumber(n as i32)
+        Solution::SignedNumber(n as i64)
     }
 }
 // Support any Result<T, _> as Solution, for any T, which implements From<T> (see above, e.g. Result<u32, Err>)
