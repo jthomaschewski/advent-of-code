@@ -1,16 +1,13 @@
-# Advent of Code 2022 Solutions
+# Advent of Code Solutions
 
-Just my personal solutions. Written in Rust as an exercise.  
-Don't expect good code - I have little experience in Rust.
+Just my personal solutions.  
+Don't expect good code - I use AOC mainly for learning new languages
 
-## Usage
+## 2022
 
-```bash
-cargo run
-```
+- [Rust](/2022/rust/)
 
-To only run specific days and/or parts, specify args: `--day N` and/or `--part P`:
 
-```bash
-cargo run -- --day=1 --part=2
-```
+## 2023
+
+- [Go](2023/go/)
