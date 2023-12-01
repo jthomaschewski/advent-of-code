@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 	"strings"
 )
 
@@ -34,12 +33,7 @@ func main() {
 				last_digit = digit
 			}
 		}
-		line_sum, err := strconv.Atoi(fmt.Sprintf("%d%d", first_digit, last_digit))
-		if err != nil {
-			log.Fatal(err)
-		}
-		// log.Println("line_sum", line_sum, "first_digit", first_digit, "last_digit", last_digit)
-		sum += line_sum
+		sum += first_digit*10 + last_digit
 	}
 
 	if err := scanner.Err(); err != nil {
