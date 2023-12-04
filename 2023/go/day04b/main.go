@@ -18,40 +18,40 @@ func main() {
 	lines := strings.Split(strings.TrimSpace(string(file)), "\n")
 
 	pile := parsePile(lines)
-	pile.process()
-	fmt.Println(pile.numCards)
+	numCopies := pile.countCopies()
+
+	fmt.Println(numCopies)
 }
 
 type Pile struct {
-	cards    []Card
-	numCards int
+	cards []Card
 }
 
-func (p *Pile) process() {
+func (p *Pile) countCopies() int {
+	copies := make([]int, len(p.cards))
+	for i := range copies {
+		copies[i] = 1
+	}
 	for i, card := range p.cards {
-		p.numCards += p.countCopies(i, &card)
+		j := 1
+		for _, owned := range card.owned {
+			if slices.Contains(card.winning, owned) {
+				copies[i+j] = copies[i+j] + copies[i]
+				j++
+			}
+		}
 	}
-}
 
-func (p *Pile) countCopies(cardIndex int, card *Card) int {
-	wins := card.wins()
-	if wins == 0 {
-		return 0
-	}
-
-	wonCards := p.cards[cardIndex+1 : cardIndex+wins+1]
 	sum := 0
-
-	for i, wonCard := range wonCards {
-		sum += 1 + p.countCopies(cardIndex+i+1, &wonCard)
+	for _, cpy := range copies {
+		sum += cpy
 	}
 	return sum
 }
 
 func parsePile(lines []string) *Pile {
 	pile := Pile{
-		cards:    make([]Card, len(lines)),
-		numCards: len(lines),
+		cards: make([]Card, len(lines)),
 	}
 	for i, line := range lines {
 		pile.cards[i] = *parseCard(line)
@@ -62,16 +62,6 @@ func parsePile(lines []string) *Pile {
 type Card struct {
 	winning []int
 	owned   []int
-}
-
-func (c *Card) wins() int {
-	winCnt := 0
-	for _, owned := range c.owned {
-		if slices.Contains(c.winning, owned) {
-			winCnt++
-		}
-	}
-	return winCnt
 }
 
 func parseCard(line string) *Card {
