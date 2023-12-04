@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 )
 
 func main() {
@@ -16,28 +15,15 @@ func main() {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-
+	validBag := Set{red: 12, green: 13, blue: 14}
 	idSum := 0
 	gameNr := 1
+
 	for scanner.Scan() {
-		game_line := scanner.Text()
+		gameLine := scanner.Text()
+		game := parseGame(gameLine)
 
-		bag := Set{red: 12, green: 13, blue: 14}
-
-		sets := strings.Split(game_line, ": ")
-		setsSplit := strings.Split(sets[1], ";")
-
-		validGame := true
-
-		for _, setStr := range setsSplit {
-			set := parseSet(setStr)
-			if !set.isValid(bag) {
-				validGame = false
-				break
-			}
-		}
-
-		if validGame {
+		if game.isValid(&validBag) {
 			idSum += gameNr
 		}
 

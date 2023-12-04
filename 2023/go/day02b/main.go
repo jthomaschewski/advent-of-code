@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 )
 
 func main() {
@@ -16,21 +15,13 @@ func main() {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-
 	sumPower := 0
 
 	for scanner.Scan() {
-		game_line := scanner.Text()
+		gameLine := scanner.Text()
 
-		sets := strings.Split(game_line, ": ")
-		setsSplit := strings.Split(sets[1], ";")
-
-		parsedSets := make([]Set, len(setsSplit))
-		for idx, setStr := range setsSplit {
-			parsedSets[idx] = *parseSet(setStr)
-		}
-		minBag := minBag(parsedSets)
-		log.Println(minBag, minBag.power())
+		game := parseGame(gameLine)
+		minBag := game.minBag()
 		sumPower += minBag.power()
 	}
 	fmt.Println(sumPower)

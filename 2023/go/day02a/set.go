@@ -39,7 +39,7 @@ func parseSet(setStr string) *Set {
 	return &Set{red: red, green: green, blue: blue}
 }
 
-func (s *Set) isValid(bag Set) bool {
+func (s *Set) isValid(bag *Set) bool {
 	if s.red > bag.red {
 		return false
 	} else if s.blue > bag.blue {

@@ -42,15 +42,3 @@ func parseSet(setStr string) *Set {
 func (s *Set) power() int {
 	return s.red * s.green * s.blue
 }
-
-func minBag(sets []Set) *Set {
-	minBag := Set{}
-
-	log.Println(sets)
-	for _, set := range sets {
-		minBag.red = max(set.red, minBag.red)
-		minBag.green = max(set.green, minBag.green)
-		minBag.blue = max(set.blue, minBag.blue)
-	}
-	return &minBag
-}
