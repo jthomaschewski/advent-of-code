@@ -17,9 +17,9 @@ func main() {
 	lines := strings.Split(string(file), "\n")
 
 	schematic := parseSchematic(lines)
-	_, partsSum := schematic.parts()
+	_, ratioSum := schematic.gears()
 
-	fmt.Println(partsSum)
+	fmt.Println(ratioSum)
 }
 
 type Schematic struct {
@@ -37,28 +37,34 @@ func (p *Position) isAdjacent(otherPos *Position) bool {
 	return p.lineRange[0] > otherPos.lineRange[0]-2 && p.lineRange[1] < otherPos.lineRange[1]+2
 }
 
-func (s *Schematic) parts() ([]int, int) {
-	var parts []int
-	var partSum int
+func (s *Schematic) gears() ([]int, int) {
+	var gearRatios []int
+	var ratioSum int
 
-	for i, candidateLine := range s.partCandidates {
-		for _, candidate := range candidateLine {
-			for _, symbolline := range s.symbols[max(0, i-1):min(s.lineCount, i+2)] {
-				for _, asym := range symbolline {
-					if asym.isAdjacent(&candidate) {
-						candidateNum, err := strconv.Atoi(candidate.value)
+	for i, symbolLine := range s.symbols {
+		for _, symbol := range symbolLine {
+			adjacentParts := make([]int, 0)
+
+			for _, candidateLine := range s.partCandidates[max(0, i-1):min(s.lineCount, i+2)] {
+				for _, candidate := range candidateLine {
+					if symbol.isAdjacent(&candidate) {
+						intval, err := strconv.Atoi(candidate.value)
 						if err != nil {
-							log.Fatalln("Unable to parse partnum", candidate.value)
+							log.Fatal(err)
 						}
-						parts = append(parts, candidateNum)
-						partSum += candidateNum
-						continue
+						adjacentParts = append(adjacentParts, intval)
 					}
 				}
 			}
+			if len(adjacentParts) == 2 {
+				ratio := adjacentParts[0] * adjacentParts[1]
+				gearRatios = append(gearRatios, ratio)
+				ratioSum += ratio
+			}
 		}
 	}
-	return parts, partSum
+
+	return gearRatios, ratioSum
 }
 
 func parseSchematic(lines []string) *Schematic {
