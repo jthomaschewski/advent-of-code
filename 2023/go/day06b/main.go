@@ -54,7 +54,6 @@ type Race struct {
 }
 
 func (r *Race) findWinningTimes() int {
-	log.Println(r)
 	wins := 0
 	for holdTime := 1; holdTime < r.time; holdTime++ {
 		distance := r.travelDistance(holdTime)
