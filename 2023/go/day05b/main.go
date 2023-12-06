@@ -22,8 +22,8 @@ func solve(filename string) int {
 	almanac := parseAlmanac(string(file))
 	lowest := -1
 
-	for _, seed := range almanac.seeds {
-		location := almanac.locationForSeed(seed)
+	for _, seedRange := range almanac.seedRanges {
+		location := almanac.lowestInSeedRange(seedRange[0], seedRange[1])
 		if lowest == -1 || location < lowest {
 			lowest = location
 		}
@@ -33,15 +33,14 @@ func solve(filename string) int {
 }
 
 type Almanac struct {
-	seeds []int
-	maps  []Map
+	seedRanges [][]int
+	maps       []Map
 }
 
 func parseAlmanac(input string) *Almanac {
-	almanac := Almanac{}
-
 	blocks := strings.Split(strings.TrimSpace(input), "\n\n")
 	seeds := strings.Fields(blocks[0])[1:]
+	seedRanges := make([][]int, len(seeds)/2)
 
 	for i := 0; i < len(seeds); i += 2 {
 		start, err := strconv.Atoi(seeds[i])
@@ -53,12 +52,10 @@ func parseAlmanac(input string) *Almanac {
 			log.Fatal(err)
 		}
 
-		for j := 0; j < length; j++ {
-			almanac.seeds = append(almanac.seeds, start+j)
-		}
+		seedRanges[i/2] = []int{start, length}
 	}
 
-	almanac.maps = make([]Map, len(blocks)-1)
+	maps := make([]Map, len(blocks)-1)
 	for i, block := range blocks[1:] {
 		lines := strings.Split(strings.TrimSpace(block), "\n")
 		name := strings.Fields(lines[0])[0]
@@ -85,21 +82,27 @@ func parseAlmanac(input string) *Almanac {
 			}
 		}
 
-		almanac.maps[i] = Map{
+		maps[i] = Map{
 			name:   name,
 			ranges: ranges,
 		}
 	}
 
-	return &almanac
+	return &Almanac{seedRanges: seedRanges, maps: maps}
 }
 
-func (a *Almanac) locationForSeed(seed int) int {
-	curLocation := seed
-	for _, m := range a.maps {
-		curLocation = m.getDestinationNumber(curLocation)
+func (a *Almanac) lowestInSeedRange(from int, length int) int {
+	lowest := -1
+	for i := 0; i < length; i++ {
+		curLocation := from + i
+		for _, m := range a.maps {
+			curLocation = m.getDestinationNumber(curLocation)
+		}
+		if lowest == -1 || curLocation < lowest {
+			lowest = curLocation
+		}
 	}
-	return curLocation
+	return lowest
 }
 
 type Map struct {
