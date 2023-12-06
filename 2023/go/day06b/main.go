@@ -57,5 +57,5 @@ func (r *Race) countWins() int {
 	x1 := -0.5*math.Sqrt(math.Pow(time, 2)-4*distance) - time
 	x2 := 0.5*math.Sqrt(math.Pow(time, 2)-4*distance) - time
 
-	return int(math.Floor(math.Abs(x2 - x1)))
+	return int(math.Abs(math.Floor(x2) - math.Floor(x1)))
 }

@@ -16,8 +16,19 @@ func TestInput(t *testing.T) {
 	assert.Equal(t, 34278221, solution)
 }
 
+func TestInputOther(t *testing.T) {
+	solution := solve("../../inputs/day06_other.txt")
+	assert.Equal(t, 34123437, solution)
+}
+
 func BenchmarkInput(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		solve("../../inputs/day06.txt")
+	}
+}
+
+func BenchmarkInputOther(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		solve("../../inputs/day06_other.txt")
 	}
 }
