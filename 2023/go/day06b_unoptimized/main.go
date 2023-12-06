@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -51,11 +50,18 @@ type Race struct {
 }
 
 func (r *Race) countWins() int {
-	time := float64(r.time)
-	distance := float64(r.distance)
+	wins := 0
+	for holdTime := 1; holdTime < r.time; holdTime++ {
+		distance := r.travelDistance(holdTime)
+		if distance > r.distance {
+			wins += 1
+		} else if wins > 0 {
+			break
+		}
+	}
+	return wins
+}
 
-	x1 := -0.5*math.Sqrt(math.Pow(time, 2)-4*distance) - time
-	x2 := 0.5*math.Sqrt(math.Pow(time, 2)-4*distance) - time
-
-	return int(math.Floor(math.Abs(x2 - x1)))
+func (r *Race) travelDistance(holdTime int) int {
+	return r.time*holdTime - (holdTime * holdTime)
 }
