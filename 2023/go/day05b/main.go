@@ -22,8 +22,18 @@ func solve(filename string) int {
 	almanac := parseAlmanac(string(file))
 	lowest := -1
 
+	ch := make(chan int)
+
+	// write values to channel in parallel
 	for _, seedRange := range almanac.seedRanges {
-		location := almanac.lowestInSeedRange(seedRange[0], seedRange[1])
+		go func(seedRange []int) {
+			ch <- almanac.lowestInSeedRange(seedRange[0], seedRange[1])
+		}(seedRange)
+	}
+
+	// read values from channel
+	for range almanac.seedRanges {
+		location := <-ch
 		if lowest == -1 || location < lowest {
 			lowest = location
 		}
