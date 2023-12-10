@@ -11,10 +11,10 @@ func TestExample(t *testing.T) {
 	assert.Equal(t, 114, solution)
 }
 
-// func TestInput(t *testing.T) {
-// 	solution := solve("../../inputs/day09.txt")
-// 	assert.Equal(t, 10818234074807, solution)
-// }
+func TestInput(t *testing.T) {
+	solution := solve("../../inputs/day09.txt")
+	assert.Equal(t, 1884768153, solution)
+}
 
 func BenchmarkInput(b *testing.B) {
 	for n := 0; n < b.N; n++ {

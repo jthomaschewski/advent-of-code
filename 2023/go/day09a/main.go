@@ -9,7 +9,6 @@ import (
 )
 
 func main() {
-	// solution := solve("../../inputs/day09_example_a.txt")
 	solution := solve("../../inputs/day09.txt")
 	fmt.Println(solution)
 }
@@ -72,17 +71,14 @@ func (h *History) nextValue() int {
 		nextSeq, nextIsZero := seq[i].nextDiffSequence()
 		seq = append(seq, nextSeq)
 		isZero = nextIsZero
-		// log.Println(seq[i])
 		i++
 	}
 
 	predictionBelow := seq[len(seq)-2][len(seq[len(seq)-2])-1]
 
 	for i := len(seq) - 3; i >= 0; i-- {
-		// log.Println("valBelow", predictionBelow, seq[i][len(seq[i])-1], seq[i][len(seq[i])-1]+predictionBelow)
 		predictionBelow = seq[i][len(seq[i])-1] + predictionBelow
 	}
-	// log.Println("prediction", predictionBelow)
 	return predictionBelow
 }
 
