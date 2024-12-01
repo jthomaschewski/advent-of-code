@@ -1,7 +1,10 @@
 # Advent of Code Solutions
 
-These are my personal solutions to the [Advent of Code](https://adventofcode.com/) challenges. 
+These are my personal solutions to the [Advent of Code](https://adventofcode.com/) challenges.
 Please note that the code is primarily for learning new languages, so don't expect perfection.
+
+## 2024
+- [Rust](2024/rust/)
 
 ## 2023
 
@@ -11,4 +14,3 @@ Please note that the code is primarily for learning new languages, so don't expe
 ## 2022
 
 - [Rust](2022/rust/)
-
